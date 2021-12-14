@@ -1,0 +1,56 @@
+/* O resource tem um tipo e um nome
+Tipo: aws_instance
+Nome: dev 
+Aqui eu vou criar o tipo de máquina que eu quero criar
+pode fazer uma tabela e buscar dessa tabela as imagens
+*/
+resource "aws_instance" "dev" {
+    # Criar 3 EC2
+    count = 3
+    # Etapa 1: Selecione uma Imagem de máquina da Amazon (AMI)
+    ami = "ami-04902260ca3d33422"
+    # Etapa 2: Escolha um tipo de instância
+    instance_type = "t2.micro"
+    # Chave SSH, cada região tem a sua, importa no EC2 
+    key_name = "terraform-virginia"
+    # "Se subnet tá on com isso. não precisa deste atributo" Mentira precisou sim deste lixo
+    associate_public_ip_address = true
+    
+    # Tags da EC2
+    tags = {
+    # Vou criar três máquinas, dev1, dev2 e dev3
+      "Name" = "dev${count.index}"
+    }
+    subnet_id = aws_subnet.subnet01vpc01.id
+    # pode por mais de um SG em  uma instanci, então é uma lista
+    vpc_security_group_ids = ["${aws_security_group.permite-ssh.id}"]
+}
+
+# Criar um bucket e nova máquina e vincular um ao outro, é multi região
+
+resource "aws_instance" "dev4" {
+    ami = "ami-04902260ca3d33422"
+    instance_type = "t2.micro"
+    key_name = "terraform-virginia"
+    associate_public_ip_address = true
+    
+    tags = {
+      "Name" = "dev4"
+    }
+    subnet_id = aws_subnet.subnet01vpc01.id
+    vpc_security_group_ids = ["${aws_security_group.permite-ssh.id}"]
+    depends_on = [aws_s3_bucket.baldinho-dev4]
+}
+
+resource "aws_instance" "dev5" {
+    ami = "ami-04902260ca3d33422"
+    instance_type = "t2.micro"
+    key_name = "terraform-virginia"
+    associate_public_ip_address = true
+    
+    tags = {
+      "Name" = "dev5"
+    }
+    subnet_id = aws_subnet.subnet01vpc01.id
+    vpc_security_group_ids = ["${aws_security_group.permite-ssh.id}"]
+}
