@@ -37,6 +37,7 @@ resource "aws_vpc" "vpc02" {
 }
 # Cria subnet da VPC
 resource "aws_subnet" "subnet02vpc02" {
+    provider = aws.us-east-2
     # tipo e nome setado no resource anterior, separado por um ponto
     vpc_id = aws_vpc.vpc02.id
     cidr_block = "10.2.1.0/24"

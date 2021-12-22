@@ -60,13 +60,13 @@ resource "aws_instance" "dev6" {
     provider = aws.us-east-2
     ami = "ami-002068ed284fb165b"
     instance_type = "t2.micro"
-    key_name = "terraform-us-east-02"
+    key_name = "terraform-virginia"
     associate_public_ip_address = true
     
     tags = {
       "Name" = "dev6"
     }
-    subnet_id = aws_subnet.subnet01vpc01.id
+    subnet_id = aws_subnet.subnet02vpc02.id
     vpc_security_group_ids = ["${aws_security_group.permite-ssh-us-east-2.id}"]
     depends_on = [aws_dynamodb_table.tabela-db-us-east-2-homologacao]
 }
