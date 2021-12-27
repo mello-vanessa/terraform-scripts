@@ -8,7 +8,7 @@ resource "aws_instance" "dev" {
     # Criar 3 EC2
     count = 3
     # Etapa 1: Selecione uma Imagem de máquina da Amazon (AMI)
-    ami = var.amis["us-east-2"]
+    ami = var.amis["us-east-1"]
     # Etapa 2: Escolha um tipo de instância
     instance_type = "t2.micro"
     # Chave SSH, cada região tem a sua, importa no EC2 
@@ -29,7 +29,7 @@ resource "aws_instance" "dev" {
 # Criar um bucket e nova máquina e vincular um ao outro, é multi região
 
 resource "aws_instance" "dev4" {
-    ami = var.amis["us-east-2"]
+    ami = var.amis["us-east-1"]
     instance_type = "t2.micro"
     key_name = "terraform-virginia"
     associate_public_ip_address = true
@@ -43,7 +43,7 @@ resource "aws_instance" "dev4" {
 }
 
 resource "aws_instance" "dev5" {
-    ami = var.amis["us-east-2"]
+    ami = var.amis["us-east-1"]
     instance_type = "t2.micro"
     key_name = "terraform-virginia"
     associate_public_ip_address = true
