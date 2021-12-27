@@ -7,7 +7,3 @@ variable "amis" {
       "us-east-2" = "ami-002068ed284fb165b"
   }
 }
-
-variable "teste" {
-  
-}
