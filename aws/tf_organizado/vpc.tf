@@ -1,13 +1,3 @@
-/* Busca e armazena meu IP em uma variável
-   O data é de data source, mesmo que a URL seja https, o tipo de datasource é http
-   Então é sempre data - tipo - variavel de nome local
-   Ou seja, neste caso um bloco do tipo dado "data" requisita que o terraform leia de uma origem de dados dada, como no caso o http e exporta
-   este resultado para um nome local, uma variável local, no caso, "meuip"
-*/
-data "http" "meuip"{
-    url = "https://ipv4.icanhazip.com"
-}
-
 /* Cria VPC. O tipo é predefinido, o nome, eu dou o que eu quiser, no caso, vpc01
    Neste caso é um bloco do tipo recurso "resource", origem do tipo "aws_vpc" e o nome da variável local é "vpc01"
 */
@@ -55,6 +45,8 @@ resource "aws_subnet" "subnet02vpc02" {
     }
 }
 
+# Security groups
+
 resource "aws_security_group" "permite-ssh" {
   name        = "permite-ssh"
   description = "Permite SSH no trafego de entrada"
@@ -65,7 +57,10 @@ resource "aws_security_group" "permite-ssh" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-# ["177.22.178.179/32", 1.1.1.0/24]
+/* 
+Se usasse manual, seria assim: cidr_blocks = ["177.22.178.179/32", 1.1.1.0/24]
+Se usasse o variable list, ae seria assim: cidr_blocks = var.cidrs_acesso_remoto
+*/
     cidr_blocks      = ["${chomp(data.http.meuip.body)}/32"]
   }
 

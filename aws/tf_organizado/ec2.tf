@@ -12,7 +12,7 @@ resource "aws_instance" "dev" {
     # Etapa 2: Escolha um tipo de instância
     instance_type = "t2.micro"
     # Chave SSH, cada região tem a sua, importa no EC2 
-    key_name = "terraform-virginia"
+    key_name = var.chave-ssh
     # "Se subnet tá on com isso. não precisa deste atributo" Mentira precisou sim deste lixo
     associate_public_ip_address = true
     
@@ -31,7 +31,7 @@ resource "aws_instance" "dev" {
 resource "aws_instance" "dev4" {
     ami = var.amis["us-east-1"]
     instance_type = "t2.micro"
-    key_name = "terraform-virginia"
+    key_name = var.chave-ssh
     associate_public_ip_address = true
     
     tags = {
@@ -45,7 +45,7 @@ resource "aws_instance" "dev4" {
 resource "aws_instance" "dev5" {
     ami = var.amis["us-east-1"]
     instance_type = "t2.micro"
-    key_name = "terraform-virginia"
+    key_name = var.chave-ssh
     associate_public_ip_address = true
     
     tags = {
@@ -60,7 +60,8 @@ resource "aws_instance" "dev6" {
     provider = aws.us-east-2
     ami = var.amis["us-east-2"]
     instance_type = "t2.micro"
-    key_name = "terraform-virginia"
+  # key_name = "terraform-virginia"
+    key_name = var.chave-ssh
     associate_public_ip_address = true
     
     tags = {
