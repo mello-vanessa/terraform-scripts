@@ -1,9 +1,16 @@
-# Busca e armazena meu IP em uma variável
+/* Busca e armazena meu IP em uma variável
+   O data é de data source, mesmo que a URL seja https, o tipo de datasource é http
+   Então é sempre data - tipo - variavel de nome local
+   Ou seja, neste caso um bloco do tipo dado "data" requisita que o terraform leia de uma origem de dados dada, como no caso o http e exporta
+   este resultado para um nome local, uma variável local, no caso, "meuip"
+*/
 data "http" "meuip"{
     url = "https://ipv4.icanhazip.com"
 }
 
-# Cria VPC. O tipo é predefinido, o nome, eu dou o que eu quiser, no caso, vpc01
+/* Cria VPC. O tipo é predefinido, o nome, eu dou o que eu quiser, no caso, vpc01
+   Neste caso é um bloco do tipo recurso "resource", origem do tipo "aws_vpc" e o nome da variável local é "vpc01"
+*/
 resource "aws_vpc" "vpc01" {
     cidr_block = "10.1.0.0/16"
     enable_dns_hostnames = true
