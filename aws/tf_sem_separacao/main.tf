@@ -36,7 +36,7 @@ resource "aws_internet_gateway" "igw01" {
 }
 
 /* Cria tabela de rotas
-# Aqui acaba tendo que por esse monte de inutilidade, senão dá erro na criação */
+# Aqui acaba tendo que por essas tags, senão dá erro na criação */
 resource "aws_route_table" "rt01" {
     vpc_id =  aws_vpc.vpc01.id
     route = [ {
@@ -114,7 +114,7 @@ resource "aws_instance" "dev" {
     instance_type = "t2.micro"
     # Chave SSH, cada região tem a sua, importa no EC2 
     key_name = "terraform-virginia"
-    # "Se subnet tá on com isso. não precisa deste atributo" Mentira precisou sim deste lixo
+    # "Se subnet tá on com isso. não precisaria deste atributo na teoria, mas deu erro e precisei adicionar na resource
     associate_public_ip_address = true
     
     # Tags da EC2
@@ -165,8 +165,3 @@ resource "aws_s3_bucket" "baldinho-dev4" {
     Name = "baldinho-dev4"
   }
 }
-
-# Verificar se o lixo do IP é auto attachado no lixo da EC2
-/*output "instance_public_ips" {
-  value = aws_instance.dev.*.public_ip
-}*/

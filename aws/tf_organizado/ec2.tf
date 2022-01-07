@@ -13,7 +13,7 @@ resource "aws_instance" "dev" {
     instance_type = "t2.micro"
     # Chave SSH, cada região tem a sua, importa no EC2 
     key_name = var.chave-ssh
-    # "Se subnet tá on com isso. não precisa deste atributo" Mentira precisou sim deste lixo
+    # "Se subnet tá on com isso. não precisaria deste atributo na teoria, mas na prática só funcionou assim
     associate_public_ip_address = true
     
     # Tags da EC2

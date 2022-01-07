@@ -8,7 +8,7 @@ resource "aws_internet_gateway" "igw01" {
 }
 
 /* Cria tabela de rotas
-# Aqui acaba tendo que por esse monte de inutilidade, senão dá erro na criação */
+# Aqui acaba tendo que por essas tags, senão dá erro na criação, requer testar removendo um por um para validar qual requer mesmo*/
 resource "aws_route_table" "rt01" {
     vpc_id =  aws_vpc.vpc01.id
     route = [ {

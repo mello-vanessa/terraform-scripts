@@ -22,7 +22,7 @@ resource "aws_subnet" "subnet01vpc01" {
     }
 }
 
-# Cria VPC. O tipo é predefinido, o nome, eu dou o que eu quiser, no caso, vpc01
+# Cria VPC. O tipo é predefinido, o nome, eu dou o que eu quiser, no caso, vpc02
 resource "aws_vpc" "vpc02" {
     provider = aws.us-east-2
     cidr_block = "10.2.0.0/16"
