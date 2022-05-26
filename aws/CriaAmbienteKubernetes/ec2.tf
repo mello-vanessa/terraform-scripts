@@ -16,7 +16,8 @@ sudo echo nf_conntrack_ipv4 >> /etc/modules-load.d/k8s.conf
 sudo apt update
 sudo apt upgrade -y
 curl -fsSL https://get.docker.com | bash
-cat > /etc/docker/daemon.json <<EOD
+touch /etc/docker/daemon.json
+sudo cat > /etc/docker/daemon.json <<EOD
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
   "log-driver": "json-file",
