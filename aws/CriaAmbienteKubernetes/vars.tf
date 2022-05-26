@@ -18,7 +18,7 @@ variable "inst_type" {
 }
 
 variable "chave-ssh" {
-   default = "MacBook-vanessa"
+   default = "HAProxy"
 }
 
 // Busca e armazena meu IP em uma variável
