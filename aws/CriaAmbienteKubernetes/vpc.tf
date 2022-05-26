@@ -1,24 +1,26 @@
-/* Cria VPC. O tipo é predefinido, o nome, eu dou o que eu quiser, no caso, vpc01
-   Neste caso é um bloco do tipo recurso "resource", origem do tipo "aws_vpc" e o nome da variável local é "vpc01"
+/* Cria VPC. O tipo é predefinido, o nome, eu dou o que eu quiser, no caso, vpck8s
+   Neste caso é um bloco do tipo recurso "resource", origem do tipo "aws_vpc" e o nome da variável local é "vpck8s"
 */
-resource "aws_vpc" "vpc01" {
+resource "aws_vpc" "vpck8s" {
     cidr_block = "10.2.0.0/16"
     enable_dns_hostnames = true
     enable_dns_support = true
     tags = {
-      "Name" = "vpc01"
+      "Name" = "vpck8s"
+      Environment = terraform.workspace
     }
 }
 
 # Cria subnet da VPC
-resource "aws_subnet" "subnet01vpc01" {
+resource "aws_subnet" "subnet01vpck8s" {
     # tipo e nome setado no resource anterior, separado por um ponto
-    vpc_id = aws_vpc.vpc01.id
+    vpc_id = aws_vpc.vpck8s.id
     cidr_block = "10.2.1.0/24"
     map_public_ip_on_launch = true
 
     tags = {
       "Name" = "subnet01"
+      Environment = terraform.workspace
     }
 }
 
@@ -27,7 +29,7 @@ resource "aws_subnet" "subnet01vpc01" {
 resource "aws_security_group" "permite-ssh" {
   name        = "permite-ssh"
   description = "Permite SSH no trafego de entrada"
-  vpc_id      = aws_vpc.vpc01.id
+  vpc_id      = aws_vpc.vpck8s.id
 
   ingress {
     description      = "SSH para a VPC"
@@ -51,5 +53,6 @@ Se usasse o variable list, ae seria assim: cidr_blocks = var.cidrs_acesso_remoto
 
   tags = {
     Name = "permite-ssh"
+    Environment = terraform.workspace
   }
 }

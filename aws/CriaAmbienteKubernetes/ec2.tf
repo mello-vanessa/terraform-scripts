@@ -6,8 +6,9 @@ resource "aws_instance" "worker" {
     associate_public_ip_address = true
     
     tags = {
-      "Name" = "worker${count.index}"
+      "Name" = "k8s-worker${count.index}"
+      Environment = terraform.workspace
     }
-    subnet_id = aws_subnet.subnet01vpc01.id
+    subnet_id = aws_subnet.subnet01vpck8s.id
     vpc_security_group_ids = ["${aws_security_group.permite-ssh.id}"]
 }
