@@ -1,7 +1,7 @@
 resource "aws_instance" "worker" {
     count = 3
     ami = var.amis["us-east-1"]
-    instance_type = "t2.micro"
+    instance_type = var.inst_type
     key_name = var.chave-ssh
     associate_public_ip_address = true
     user_data                   = <<EOF
