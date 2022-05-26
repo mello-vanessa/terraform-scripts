@@ -27,7 +27,6 @@ sudo cat > /etc/docker/daemon.json <<EOD
   "storage-driver": "overlay2"
 }
 EOD
-sudo mkdir -p /etc/systemd/system/docker.service.d
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
