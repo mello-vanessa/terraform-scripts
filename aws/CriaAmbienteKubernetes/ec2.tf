@@ -7,12 +7,12 @@ resource "aws_instance" "worker" {
     user_data                   = <<EOF
 #!/bin/bash -xe
 sudo touch /etc/modules-load.d/k8s.conf
-sudo echo br_netfilter > /etc/modules-load.d/k8s.conf
-sudo echo ip_vs > /etc/modules-load.d/k8s.conf
-sudo echo ip_vs_rr > /etc/modules-load.d/k8s.conf
-sudo echo ip_vs_sh > /etc/modules-load.d/k8s.conf
-sudo echo ip_vs_wrr > /etc/modules-load.d/k8s.conf
-sudo echo nf_conntrack_ipv4 > /etc/modules-load.d/k8s.conf
+sudo echo br_netfilter >> /etc/modules-load.d/k8s.conf
+sudo echo ip_vs >> /etc/modules-load.d/k8s.conf
+sudo echo ip_vs_rr >> /etc/modules-load.d/k8s.conf
+sudo echo ip_vs_sh >> /etc/modules-load.d/k8s.conf
+sudo echo ip_vs_wrr >> /etc/modules-load.d/k8s.conf
+sudo echo nf_conntrack_ipv4 >> /etc/modules-load.d/k8s.conf
 sudo apt update
 sudo apt upgrade -y
 curl -fsSL https://get.docker.com | bash
