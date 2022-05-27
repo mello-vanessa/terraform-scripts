@@ -22,7 +22,7 @@ variable "chave-ssh" {
 }
 
 variable "path-chave-ssh" {
-   default = "~/.ssh/id_rsa.pub"
+   default = "/home/ubuntu/.ssh/id_rsa"
 }
 
 variable "user" {
