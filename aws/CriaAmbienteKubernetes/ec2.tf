@@ -16,17 +16,21 @@ echo ip_vs_wrr >> /etc/modules-load.d/k8s.conf
 echo nf_conntrack_ipv4 >> /etc/modules-load.d/k8s.conf
 apt update
 apt upgrade -y
-curl -fsSL https://get.docker.com | bash
-mkdir /etc/docker
-touch /etc/docker/daemon.json
-echo "{" > /etc/docker/daemon.json
-echo "  \"exec-opts\": [\"native.cgroupdriver=systemd\"]," >> /etc/docker/daemon.json
-echo "  \"log-driver\": \"json-file\","  >> /etc/docker/daemon.json
-echo "  \"log-opts\": {"  >> /etc/docker/daemon.json
-echo "    \"max-size\": \"100m\""  >> /etc/docker/daemon.json
-echo "  },"  >> /etc/docker/daemon.json
-echo "  \"storage-driver\": \"overlay2\""  >> /etc/docker/daemon.json
-echo "}"  >> /etc/docker/daemon.json
+touch /tmp/daemon.json
+echo "{" > /tmp/daemon.json
+echo "  \"exec-opts\": [\"native.cgroupdriver=systemd\"]," >> /tmp/daemon.json
+echo "  \"log-driver\": \"json-file\","  >> /tmp/daemon.json
+echo "  \"log-opts\": {"  >> /tmp/daemon.json
+echo "    \"max-size\": \"100m\""  >> /tmp/daemon.json
+echo "  },"  >> /tmp/daemon.json
+echo "  \"storage-driver\": \"overlay2\""  >> /tmp/daemon.json
+echo "}"  >> /tmp/daemon.json
+apt-get update && sudo apt-get install -y apt-transport-https gnupg2
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list; exit
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
+swapoff -a
 EOF
   
   tags = {
