@@ -3,13 +3,8 @@
 variable "amis" {
   type = map(string)
   default = {
-      "us-east-1" = "ami-0ed9277fb7eb570c9"
+      "us-east-1" = "ami-04505e74c0741db8d"
   }
-}
-
-variable "inst_ami" {
-  type = string
-  default =  "ami-0ed9277fb7eb570c9"
 }
 
 variable "inst_type" {
