@@ -21,10 +21,6 @@ variable "chave-ssh" {
    default = "HAProxy"
 }
 
-variable "path-chave-ssh" {
-   default = "/home/ubuntu/.ssh/id_rsa"
-}
-
 variable "user" {
    default = "ubuntu"
 }
