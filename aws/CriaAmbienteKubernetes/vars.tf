@@ -18,7 +18,7 @@ variable "chave-ssh" {
 
 variable "key_file" {
   type        = string
-  default     = "/home/ubuntu/.ssh/id_rsa.pub"
+  default     = "/home/ubuntu/.ssh/id_rsa"
   description = "Configure pem file on machine"
 }
 
