@@ -23,7 +23,7 @@ resource "aws_instance" "worker" {
   }
 
   provisioner "local-exec" {
-    command = "sleep 10; echo $PATH; /usr/bin/ansible-playbook -i '${self.public_ip},' -u ${var.user} --private-key=${var.key_file} --ssh-common-args='-o StrictHostKeyChecking=no' ansible/main.yaml"
+    command = "/usr/bin/ansible-playbook -i '${self.public_ip},' -u ${var.user} --private-key=${var.key_file} --ssh-common-args='-o StrictHostKeyChecking=no' ansible/main.yaml"
   }
   tags = {
     "Name"      = "k8s-worker${count.index}"
