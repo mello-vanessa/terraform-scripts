@@ -1,0 +1,8 @@
+- hosts: all
+  gather_facts: true
+  name: Configure docker & k8s
+  become: yes
+  become_method: sudo
+  become_user: root
+  roles:
+    - k8s

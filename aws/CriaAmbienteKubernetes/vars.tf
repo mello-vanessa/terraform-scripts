@@ -21,6 +21,10 @@ variable "chave-ssh" {
    default = "HAProxy"
 }
 
+variable "user" {
+   default = "ubuntu"
+}
+
 // Busca e armazena meu IP em uma variável
 data "http" "meuip"{
     url = "https://ipv4.icanhazip.com"

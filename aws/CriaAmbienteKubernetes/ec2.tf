@@ -14,6 +14,27 @@ sudo echo ip_vs_sh >> /etc/modules-load.d/k8s.conf
 sudo echo ip_vs_wrr >> /etc/modules-load.d/k8s.conf
 sudo echo nf_conntrack_ipv4 >> /etc/modules-load.d/k8s.conf
 EOF
+
+  connection {
+    type        = "ssh"
+    user        = var.user
+    private_key = file(var.key_file)
+    host        = self.private_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo hostnamectl set-hostname k8s-worker${count.index}",
+      "sudo echo 'k8s-worker${count.index}' > /etc/hostname",
+      "echo '127.0.0.1 k8s-worker${count.index}' | sudo tee -a /etc/hosts",
+      "sleep 30",
+      "sudo apt update -y && sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y && sudo apt install ansible -y",
+    ]
+  }
+
+  provisioner "local-exec" {
+    command = "sleep 10; echo $PATH; /usr/bin/ansible-playbook -i '${self.private_ip},' -u ${var.user} --private-key=${var.chave-ssh} --ssh-common-args='-o StrictHostKeyChecking=no' ansible/main.yaml"
+  }
     
     tags = {
       "Name" = "k8s-worker${count.index}"
