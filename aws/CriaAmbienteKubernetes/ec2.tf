@@ -1,5 +1,5 @@
 resource "aws_instance" "worker" {
-    count = 3
+    count = 1
     ami = var.amis["us-east-1"]
     instance_type = var.inst_type
     key_name = var.chave-ssh
@@ -8,7 +8,7 @@ resource "aws_instance" "worker" {
   connection {
     type        = "ssh"
     user        = var.user
-    private_key = file(var.chave-ssh)
+    private_key = file(var.path-chave-ssh)
     host        = self.private_ip
   }
 
@@ -23,7 +23,7 @@ resource "aws_instance" "worker" {
   }
 
   provisioner "local-exec" {
-    command = "sleep 10; echo $PATH; /usr/bin/ansible-playbook -i '${self.private_ip},' -u ${var.user} --private-key=${var.chave-ssh} --ssh-common-args='-o StrictHostKeyChecking=no' ansible/main.yaml"
+    command = "sleep 10; echo $PATH; /usr/bin/ansible-playbook -i '${self.private_ip},' -u ${var.user} --private-key=${var.path-chave-ssh} --ssh-common-args='-o StrictHostKeyChecking=no' ansible/main.yaml"
   }
     
     tags = {
