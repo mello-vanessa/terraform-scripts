@@ -8,7 +8,7 @@ resource "aws_instance" "worker" {
   connection {
     type        = "ssh"
     user        = var.user
-    private_key = file(var.key_file)
+    private_key = file(var.chave-ssh)
     host        = self.private_ip
   }
 
