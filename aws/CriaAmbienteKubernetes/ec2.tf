@@ -14,6 +14,15 @@ echo ip_vs_rr >> /etc/modules-load.d/k8s.conf
 echo ip_vs_sh >> /etc/modules-load.d/k8s.conf
 echo ip_vs_wrr >> /etc/modules-load.d/k8s.conf
 echo nf_conntrack_ipv4 >> /etc/modules-load.d/k8s.conf
+touch /tmp/daemon.json
+echo "{" > /tmp/daemon.json
+echo "  \"exec-opts\": [\"native.cgroupdriver=systemd\"]," >> /tmp/daemon.json
+echo "  \"log-driver\": \"json-file\","  >> /tmp/daemon.json
+echo "  \"log-opts\": {"  >> /tmp/daemon.json
+echo "    \"max-size\": \"100m\""  >> /tmp/daemon.json
+echo "  },"  >> /tmp/daemon.json
+echo "  \"storage-driver\": \"overlay2\""  >> /tmp/daemon.json
+echo "}"  >> /tmp/daemon.json
 EOF
   
   tags = {
