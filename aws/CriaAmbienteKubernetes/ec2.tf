@@ -7,37 +7,26 @@ resource "aws_instance" "worker" {
 
   user_data                   = <<EOF
 #!/bin/bash -xe
-sudo touch /etc/modules-load.d/k8s.conf
-sudo echo br_netfilter >> /etc/modules-load.d/k8s.conf
-sudo echo ip_vs >> /etc/modules-load.d/k8s.conf
-sudo echo ip_vs_rr >> /etc/modules-load.d/k8s.conf
-sudo echo ip_vs_sh >> /etc/modules-load.d/k8s.conf
-sudo echo ip_vs_wrr >> /etc/modules-load.d/k8s.conf
-sudo echo nf_conntrack_ipv4 >> /etc/modules-load.d/k8s.conf
-sudo apt update
-sudo apt upgrade -y
+touch /etc/modules-load.d/k8s.conf
+echo br_netfilter >> /etc/modules-load.d/k8s.conf
+echo ip_vs >> /etc/modules-load.d/k8s.conf
+echo ip_vs_rr >> /etc/modules-load.d/k8s.conf
+echo ip_vs_sh >> /etc/modules-load.d/k8s.conf
+echo ip_vs_wrr >> /etc/modules-load.d/k8s.conf
+echo nf_conntrack_ipv4 >> /etc/modules-load.d/k8s.conf
+apt update
+apt upgrade -y
 curl -fsSL https://get.docker.com | bash
-sleep 60
-sudo mkdir /etc/docker
-sudo touch /etc/docker/daemon.json
-sudo echo "{" > /etc/docker/daemon.json
-sudo echo "  \"exec-opts\": [\"native.cgroupdriver=systemd\"]," >> /etc/docker/daemon.json
-sudo echo "  \"log-driver\": \"json-file\","  >> /etc/docker/daemon.json
-sudo echo "  \"log-opts\": {"  >> /etc/docker/daemon.json
-sudo echo "    \"max-size\": \"100m\""  >> /etc/docker/daemon.json
-sudo echo "  },"  >> /etc/docker/daemon.json
-sudo echo "  \"storage-driver\": \"overlay2\""  >> /etc/docker/daemon.json
-sudo echo "}"  >> /etc/docker/daemon.json
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo su;  echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list; exit
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo swapoff -a
-sudo kubeadm config images pull
-sudo kubeadm init
+mkdir /etc/docker
+touch /etc/docker/daemon.json
+echo "{" > /etc/docker/daemon.json
+echo "  \"exec-opts\": [\"native.cgroupdriver=systemd\"]," >> /etc/docker/daemon.json
+echo "  \"log-driver\": \"json-file\","  >> /etc/docker/daemon.json
+echo "  \"log-opts\": {"  >> /etc/docker/daemon.json
+echo "    \"max-size\": \"100m\""  >> /etc/docker/daemon.json
+echo "  },"  >> /etc/docker/daemon.json
+echo "  \"storage-driver\": \"overlay2\""  >> /etc/docker/daemon.json
+echo "}"  >> /etc/docker/daemon.json
 EOF
   
   tags = {
