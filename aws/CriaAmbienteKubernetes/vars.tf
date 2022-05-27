@@ -3,17 +3,17 @@
 variable "amis" {
   type = map(string)
   default = {
-      "us-east-1" = "ami-04505e74c0741db8d"
+    "us-east-1" = "ami-04505e74c0741db8d"
   }
 }
 
 variable "inst_type" {
-  type = string
-  default =  "t2.medium"
+  type    = string
+  default = "t2.medium"
 }
 
 variable "chave-ssh" {
-   default = "HAProxy"
+  default = "HAProxy"
 }
 
 variable "key_file" {
@@ -23,10 +23,10 @@ variable "key_file" {
 }
 
 variable "user" {
-   default = "ubuntu"
+  default = "ubuntu"
 }
 
 // Busca e armazena meu IP em uma variável
-data "http" "meuip"{
-    url = "https://ipv4.icanhazip.com"
+data "http" "meuip" {
+  url = "https://ipv4.icanhazip.com"
 }

@@ -1,9 +1,9 @@
 resource "aws_instance" "worker" {
-    count = 1
-    ami = var.amis["us-east-1"]
-    instance_type = var.inst_type
-    key_name = var.chave-ssh
-    associate_public_ip_address = true
+  count                       = 1
+  ami                         = var.amis["us-east-1"]
+  instance_type               = var.inst_type
+  key_name                    = var.chave-ssh
+  associate_public_ip_address = true
 
   connection {
     type        = "ssh"
@@ -24,11 +24,11 @@ resource "aws_instance" "worker" {
 
   provisioner "local-exec" {
     command = "sleep 10; echo $PATH; /usr/bin/ansible-playbook -i '${self.public_ip},' -u ${var.user} --private-key=${var.key_file} --ssh-common-args='-o StrictHostKeyChecking=no' ansible/main.yaml"
-  }  
-    tags = {
-      "Name" = "k8s-worker${count.index}"
-      Environment = terraform.workspace
-    }
-    subnet_id = aws_subnet.subnet01vpck8s.id
-    vpc_security_group_ids = ["${aws_security_group.permite-ssh.id}"]
+  }
+  tags = {
+    "Name"      = "k8s-worker${count.index}"
+    Environment = terraform.workspace
+  }
+  subnet_id              = aws_subnet.subnet01vpck8s.id
+  vpc_security_group_ids = ["${aws_security_group.permite-ssh.id}"]
 }
