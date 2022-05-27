@@ -14,14 +14,6 @@ echo ip_vs_rr >> /etc/modules-load.d/k8s.conf
 echo ip_vs_sh >> /etc/modules-load.d/k8s.conf
 echo ip_vs_wrr >> /etc/modules-load.d/k8s.conf
 echo nf_conntrack_ipv4 >> /etc/modules-load.d/k8s.conf
-apt update
-apt upgrade -y
-apt-get update && sudo apt-get install -y apt-transport-https gnupg2
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list; exit
-apt-get update
-apt-get install -y kubelet kubeadm kubectl
-swapoff -a
 EOF
   
   tags = {
