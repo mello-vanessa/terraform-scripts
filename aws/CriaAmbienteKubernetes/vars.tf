@@ -16,6 +16,11 @@ variable "chave-ssh" {
    default = "HAProxy"
 }
 
+variable "key_file" {
+  type        = string
+  description = "Configure pem file on machine"
+}
+
 variable "user" {
    default = "ubuntu"
 }
